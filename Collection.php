@@ -44,4 +44,27 @@ class Collection
     {
         return array_sum($this->items) / count($this->items);
     }
+    
+    public function each(callable $callable)
+    {
+        foreach ($this->items as $key => $item) {
+            $callable($item, $key);
+        }
+
+        return $this;
+    }
+
+    public function filter(callable $callable = null)
+    {
+        if ($callable) {
+            return array_filter($this->items, $callable);
+        }
+
+        return array_filter($this->items);
+    }
+
+    public function toJson()
+    {
+        return json_encode($this->items);
+    }
 }
